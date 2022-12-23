@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "Lab6.h"
+#include "vector_params.h"
 
 #define MAX_LOADSTRING 100
 
@@ -98,7 +99,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Store instance handle in our global variable
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+       100, 100,
+       500, 600,
+       nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -131,6 +134,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // Parse the menu selections:
             switch (wmId)
             {
+            case ID_NEW_VECTOR:
+                OpenDialog(hWnd, hInst);
+                break;
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
