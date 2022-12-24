@@ -2,6 +2,10 @@
 #include "vector_params.h"
 #include "resource1.h"
 
+int n, min, max;
+BOOL pn, pmin, pmax;
+HWND hWndObject2;
+
 static INT_PTR CALLBACK VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
@@ -13,6 +17,21 @@ static INT_PTR CALLBACK VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPA
     case WM_COMMAND:
         if (LOWORD(wParam) == IDOK)
         {
+            n = GetDlgItemInt(hDlg, IDC_EDIT_N, &pn, FALSE);
+            min = GetDlgItemInt(hDlg, IDC_EDIT_MIN, &pmin, FALSE);
+            max = GetDlgItemInt(hDlg, IDC_EDIT_MAX, &pmax, FALSE);
+            
+            if (pn == 0 || pmin == 0 || pmax == 0)
+            {
+                MessageBox(hDlg, L"�� ����� �����, ���� �� ���� ���� �������������� �� �����, ��� �������� ����� ������.", L"���, �������", MB_OK);
+                break;
+            }
+
+            if (n <= 0 || min <= 0 || max <= 0 || max <= min)
+            {
+                MessageBox(hDlg, L"�� �� ������ ���� ����� � ����������.\n������: ����� ����� �� ���� ���� ��'����� � max �� ���� ������, �� min", L"���, �������", MB_OK);
+                break;
+            }
             EndDialog(hDlg, 1);
             return (INT_PTR)TRUE;
         }
