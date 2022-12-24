@@ -4,7 +4,7 @@
 
 int n, min, max;
 BOOL pn, pmin, pmax;
-HWND hWndObject2;
+HWND hWndObject2, hWndObject3;
 
 static INT_PTR CALLBACK VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -23,26 +23,30 @@ static INT_PTR CALLBACK VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPA
             
             if (pn == 0 || pmin == 0 || pmax == 0)
             {
-                MessageBox(hDlg, L"пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.", L"пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", MB_OK);
+                MessageBox(hDlg, L"Ви ввели текст, який не може бути інтерпретоване як число, або залишили рядок пустим.", L"Упс, помилка", MB_OK);
                 break;
             }
 
             if (n <= 0 || min <= 0 || max <= 0 || max <= min)
             {
-                MessageBox(hDlg, L"пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.\nпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅпїЅпїЅ пїЅ max пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ min", L"пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ", MB_OK);
+                MessageBox(hDlg, L"Не всі введені вами числа є коректними.\n\nВимоги: жодне число не може бути від'ємним і max має бути більшим, ніж min", L"Упс, помилка", MB_OK);
                 break;
             }
 
             hWndObject2 = FindWindow(L"OBJECT2", NULL);
-            if (hWndObject2)
-            {
-
-            }
-            else
+            if (!hWndObject2)
             {
                 WinExec("Object2.exe", SW_SHOW);
                 hWndObject2 = FindWindow(L"OBJECT2", NULL);
             }
+
+            hWndObject3 = FindWindow(L"OBJECT3", NULL);
+            if (!hWndObject3)
+            {
+                WinExec("Object3.exe", SW_SHOW);
+                hWndObject3 = FindWindow(L"OBJECT3", NULL);
+            }
+            
 
             EndDialog(hDlg, 1);
             return (INT_PTR)TRUE;
