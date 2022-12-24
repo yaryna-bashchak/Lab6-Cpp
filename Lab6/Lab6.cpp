@@ -11,6 +11,7 @@
 HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
 WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
+HWND hWnd2, hWnd3;
 
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -157,6 +158,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         }
         break;
     case WM_DESTROY:
+        hWnd2 = FindWindow(L"OBJECT2", NULL);
+        hWnd3 = FindWindow(L"OBJECT3", NULL);
+        if (hWnd2) PostMessage(hWnd2, WM_DESTROY, NULL, NULL);
+        if (hWnd3) PostMessage(hWnd3, WM_DESTROY, NULL, NULL);
         PostQuitMessage(0);
         break;
     default:
