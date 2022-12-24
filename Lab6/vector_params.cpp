@@ -32,6 +32,18 @@ static INT_PTR CALLBACK VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPA
                 MessageBox(hDlg, L"�� �� ������ ���� ����� � ����������.\n������: ����� ����� �� ���� ���� ��'����� � max �� ���� ������, �� min", L"���, �������", MB_OK);
                 break;
             }
+
+            hWndObject2 = FindWindow(L"OBJECT2", NULL);
+            if (hWndObject2)
+            {
+
+            }
+            else
+            {
+                WinExec("Object2.exe", SW_SHOW);
+                hWndObject2 = FindWindow(L"OBJECT2", NULL);
+            }
+
             EndDialog(hDlg, 1);
             return (INT_PTR)TRUE;
         }
