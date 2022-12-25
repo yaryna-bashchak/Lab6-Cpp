@@ -6,7 +6,7 @@ int n, min, max;
 BOOL pn, pmin, pmax;
 HWND hWndObject2, hWndObject3;
 
-static INT_PTR CALLBACK VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+static INT_PTR CALLBACK FUNC_VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
     switch (message)
@@ -23,7 +23,7 @@ static INT_PTR CALLBACK VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPA
             
             if (pn == 0 || pmin == 0 || pmax == 0)
             {
-                MessageBox(hDlg, L"Ви ввели текст, який не може бути інтерпретоване як число, або залишили рядок пустим.", L"Упс, помилка", MB_OK);
+                MessageBox(hDlg, L"Ви ввели текст, який не може бути інтерпретований як число, або залишили рядок пустим.", L"Упс, помилка", MB_OK);
                 break;
             }
 
@@ -61,7 +61,7 @@ static INT_PTR CALLBACK VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPA
     return (INT_PTR)FALSE;
 }
 
-int OpenDialog(HWND hWnd, HINSTANCE hInst)
+void VectorParams::OnCreate(HWND hWnd, HINSTANCE hInst)
 {
-    return DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, VectorParams);
+    DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, FUNC_VectorParams);
 }

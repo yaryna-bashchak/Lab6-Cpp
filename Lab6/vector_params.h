@@ -1,3 +1,8 @@
 #pragma once
 
-extern int OpenDialog(HWND hWnd, HINSTANCE hInst);
+class VectorParams
+{
+private:
+public:
+	void OnCreate(HWND hWnd, HINSTANCE hInst);
+};
