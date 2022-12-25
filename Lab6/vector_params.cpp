@@ -5,6 +5,7 @@
 int n, min, max;
 BOOL pn, pmin, pmax;
 HWND hWndObject2, hWndObject3;
+VectorParams* pVectorDialog;
 
 static INT_PTR CALLBACK FUNC_VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -21,33 +22,11 @@ static INT_PTR CALLBACK FUNC_VectorParams(HWND hDlg, UINT message, WPARAM wParam
             min = GetDlgItemInt(hDlg, IDC_EDIT_MIN, &pmin, FALSE);
             max = GetDlgItemInt(hDlg, IDC_EDIT_MAX, &pmax, FALSE);
             
-            if (pn == 0 || pmin == 0 || pmax == 0)
-            {
-                MessageBox(hDlg, L"Ви ввели текст, який не може бути інтерпретований як число, або залишили рядок пустим.", L"Упс, помилка", MB_OK);
-                break;
-            }
+            if (!pVectorDialog->CheckInputText(hDlg)) break;
+            if (!pVectorDialog->CheckInputValues(hDlg)) break;
 
-            if (n <= 0 || min <= 0 || max <= 0 || max <= min)
-            {
-                MessageBox(hDlg, L"Не всі введені вами числа є коректними.\n\nВимоги: жодне число не може бути від'ємним і max має бути більшим, ніж min", L"Упс, помилка", MB_OK);
-                break;
-            }
-
-            hWndObject2 = FindWindow(L"OBJECT2", NULL);
-            if (!hWndObject2)
-            {
-                WinExec("Object2.exe", SW_SHOW);
-                hWndObject2 = FindWindow(L"OBJECT2", NULL);
-            }
-
-            hWndObject3 = FindWindow(L"OBJECT3", NULL);
-            if (!hWndObject3)
-            {
-                WinExec("Object3.exe", SW_SHOW);
-                hWndObject3 = FindWindow(L"OBJECT3", NULL);
-            }
+            pVectorDialog->FindWindows();
             
-
             EndDialog(hDlg, 1);
             return (INT_PTR)TRUE;
         }
@@ -63,5 +42,43 @@ static INT_PTR CALLBACK FUNC_VectorParams(HWND hDlg, UINT message, WPARAM wParam
 
 void VectorParams::OnCreate(HWND hWnd, HINSTANCE hInst)
 {
+    pVectorDialog = this;
     DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, FUNC_VectorParams);
+}
+
+void VectorParams::FindWindows()
+{
+    hWndObject2 = FindWindow(L"OBJECT2", NULL);
+    if (!hWndObject2)
+    {
+        WinExec("Object2.exe", SW_SHOW);
+        hWndObject2 = FindWindow(L"OBJECT2", NULL);
+    }
+
+    hWndObject3 = FindWindow(L"OBJECT3", NULL);
+    if (!hWndObject3)
+    {
+        WinExec("Object3.exe", SW_SHOW);
+        hWndObject3 = FindWindow(L"OBJECT3", NULL);
+    }
+}
+
+BOOL VectorParams::CheckInputText(HWND hdlg)
+{
+    if (pn == 0 || pmin == 0 || pmax == 0)
+    {
+        MessageBox(hdlg, L"Ви ввели текст, який не може бути інтерпретований як число, або залишили рядок пустим.", L"Упс, помилка", MB_OK);
+        return FALSE;
+    }
+    return TRUE;
+}
+
+BOOL VectorParams::CheckInputValues(HWND hdlg)
+{
+    if (n <= 0 || min <= 0 || max <= 0 || max <= min)
+    {
+        MessageBox(hdlg, L"Не всі введені вами числа є коректними.\n\nВимоги: жодне число не може бути від'ємним і max має бути більшим, ніж min", L"Упс, помилка", MB_OK);
+        return FALSE;
+    }
+    return TRUE;
 }
