@@ -88,8 +88,6 @@ void VectorDraw::DrawNumbers(HDC hdc)
 {
 	dx = (x2 - x1 - 50) / myVector.size();
 
-	vector<double>::iterator max;
-	vector<double>::iterator min;
 	max = max_element(myVector.begin(), myVector.end());
 	min = min_element(myVector.begin(), myVector.end());
 
@@ -117,5 +115,14 @@ void VectorDraw::DrawNumbers(HDC hdc)
 
 void VectorDraw::DrawVector(HDC hdc)
 {
+	if (myVector[0])
+	{
+		MoveToEx(hdc, x1 + dx, y2 - dy * (myVector[0] - *min + 1), NULL);
+		LineTo(hdc, x1 + dx, y2 - dy * (myVector[0] - *min + 1));
+	}
 
+	for (size_t i = 1; i < myVector.size(); i++)
+	{
+		LineTo(hdc, x1 + dx * (i + 1), y2 - dy * (myVector[i] - *min + 1));
+	}
 }
