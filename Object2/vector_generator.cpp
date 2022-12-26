@@ -58,28 +58,6 @@ void VectorGenerator::ShowVector(HWND hWnd, HDC hdc)
 	}
 }
 
-/*
-std::string PointsDisplay::GetArrayStr(int** arraySource, int num)
-{
-	using convert_type = std::codecvt_utf8<wchar_t>;
-	std::wstring_convert<convert_type, wchar_t> converter;
-
-	std::string result;
-	std::ostringstream stream;
-	int elementx, elementy;
-
-	for (int i = 0; i < num; i++)
-	{
-		elementx = arraySource[i][0];
-		elementy = arraySource[i][1];
-		stream << elementx << '\t' << elementy;
-		stream << '\n';
-	}
-	result = stream.str();
-
-	return result;
-}
-
 int VectorGenerator::PutToClipboard(HWND hWnd, char* src)
 {
 	HGLOBAL hglbCopy;
@@ -89,12 +67,9 @@ int VectorGenerator::PutToClipboard(HWND hWnd, char* src)
 	if (src == NULL) return 0;
 	if (src[0] == 0) return 0;
 
-	len = (long)strlen(src);
 	len = strlen(src);
 	hglbCopy = GlobalAlloc(GHND, len + 1);
-
 	if (hglbCopy == NULL) return 0;
-
 	pTmp = (BYTE*)GlobalLock(hglbCopy);
 	memcpy(pTmp, src, len + 1);
 	GlobalUnlock(hglbCopy);
