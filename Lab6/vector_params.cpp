@@ -33,6 +33,8 @@ INT_PTR VectorParams::DlgWndProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM 
             
             int params[3] = { n, min, max };
             CopyData(hWndObject2, GetParent(hDlg), params, sizeof(params));
+
+            PostMessage(hWndObject3, WM_CLIPBOARDUPDATE, NULL, NULL);
             //PostMessage(hWndObject2, WM_COMMAND, 10000, (LPARAM)hWnd);
 
             EndDialog(hDlg, 1);

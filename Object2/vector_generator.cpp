@@ -92,7 +92,7 @@ char* VectorGenerator::ConvertVectorToChars()
 	char buffer[1024];
 	memset(buffer, 0, sizeof(buffer));
 
-	for (size_t i = 0; i < myVector.size(); i++)
+	for (int i = 0; i < myVector.size(); i++)
 	{
 		sprintf_s(buffer, 1024, "%s%d\t%0.f\n", buffer, i + 1, myVector[i]);
 	}

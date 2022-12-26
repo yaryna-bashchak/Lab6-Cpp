@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "Object3.h"
+#include "vector_draw.h"
 
 #define MAX_LOADSTRING 100
 
@@ -127,6 +128,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CLIPBOARDUPDATE:
+        break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
