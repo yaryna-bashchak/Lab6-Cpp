@@ -131,6 +131,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
     case WM_CLIPBOARDUPDATE:
         graph.GetFromClipboard(hWnd, 1024);
+        graph.ParseClipboard();
         break;
     case WM_COMMAND:
         {
@@ -153,6 +154,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
+            graph.OnPaint(hdc);
             // TODO: Add any drawing code that uses hdc here...
             EndPaint(hWnd, &ps);
         }

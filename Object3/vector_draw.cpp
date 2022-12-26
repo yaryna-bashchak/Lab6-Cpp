@@ -59,3 +59,31 @@ void VectorDraw::ParseClipboard()
         }
     }
 }
+
+void VectorDraw::OnPaint(HDC hdc)
+{
+	DrawAxis(hdc);
+	DrawVector(hdc);
+}
+
+void VectorDraw::DrawAxis(HDC hdc)
+{
+	SelectObject(hdc, hPen);
+
+	MoveToEx(hdc, x1 - dArrow, y1 + dArrow, NULL);
+	LineTo(hdc, x1, y1);
+	LineTo(hdc, x1 + dArrow, y1 + dArrow);
+
+	MoveToEx(hdc, x1, y1, NULL);
+	LineTo(hdc, x1, y2);
+	LineTo(hdc, x2, y2);
+
+	MoveToEx(hdc, x2 - dArrow, y2 - dArrow, NULL);
+	LineTo(hdc, x2, y2);
+	LineTo(hdc, x2 - dArrow, y2 + dArrow);
+}
+
+void VectorDraw::DrawVector(HDC hdc)
+{
+
+}
