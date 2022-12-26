@@ -100,6 +100,7 @@ void VectorDraw::DrawNumbers(HDC hdc)
 		int xCoord = x1 + dx * (i + 1);
 		MoveToEx(hdc, xCoord, y2 - 5, NULL);
 		LineTo(hdc, xCoord, y2 + 5);
+		TextOut(hdc, xCoord - 5, y2 + 15, to_wstring(i + 1).c_str(), wcslen(to_wstring(i + 1).c_str()));
 	}
 
 	for (size_t i = 0; i < *max - *min + 1; i++)
@@ -107,6 +108,10 @@ void VectorDraw::DrawNumbers(HDC hdc)
 		int yCoord = y2 - dy * (i + 1);
 		MoveToEx(hdc, x1 - 5, yCoord, NULL);
 		LineTo(hdc, x1 + 5, yCoord);
+
+		WCHAR y[32];
+		swprintf_s(y, 32, L"%0.f", *min + i);
+		TextOut(hdc, x1 - 40, yCoord - 8, wstring(y).c_str(), wcslen(wstring(y).c_str()));
 	}
 }
 
