@@ -14,6 +14,9 @@ void VectorGenerator::OnCopyData(HWND hWnd, WPARAM wParam, LPARAM lParam)
 
     Generate();
 	InvalidateRect(hWnd, NULL, TRUE);
+
+	char* text = ConvertVectorToChars();
+	PutToClipboard(hWnd, text);
 }
 
 void VectorGenerator::Generate()
@@ -107,4 +110,17 @@ int VectorGenerator::PutToClipboard(HWND hWnd, char* src)
 	CloseClipboard();
 
 	return 1;
+}
+
+char* VectorGenerator::ConvertVectorToChars()
+{
+	char buffer[1024];
+	memset(buffer, 0, sizeof(buffer));
+
+	for (size_t i = 0; i < myVector.size(); i++)
+	{
+		sprintf_s(buffer, 1024, "%s%d\t%0.f\n", buffer, i + 1, myVector[i]);
+	}
+
+	return buffer;
 }
