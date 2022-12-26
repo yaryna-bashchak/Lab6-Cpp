@@ -1,13 +1,17 @@
 #include "framework.h"
 #include "vector_params.h"
 #include "resource1.h"
+#include <stdio.h>
 
-int n, min, max;
-BOOL pn, pmin, pmax;
-HWND hWndObject2, hWndObject3;
 VectorParams* pVectorDialog;
 
 static INT_PTR CALLBACK FUNC_VectorParams(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    if (pVectorDialog) return pVectorDialog->DlgWndProc(hDlg, message, wParam, lParam);
+    return (INT_PTR)FALSE;
+}
+
+INT_PTR VectorParams::DlgWndProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
     UNREFERENCED_PARAMETER(lParam);
     switch (message)
@@ -22,11 +26,15 @@ static INT_PTR CALLBACK FUNC_VectorParams(HWND hDlg, UINT message, WPARAM wParam
             min = GetDlgItemInt(hDlg, IDC_EDIT_MIN, &pmin, FALSE);
             max = GetDlgItemInt(hDlg, IDC_EDIT_MAX, &pmax, FALSE);
             
-            if (!pVectorDialog->CheckInputText(hDlg)) break;
-            if (!pVectorDialog->CheckInputValues(hDlg)) break;
+            if (!CheckInputText(hDlg)) break;
+            if (!CheckInputValues(hDlg)) break;
 
-            pVectorDialog->FindWindows();
+            FindWindows();
             
+            int params[3] = { n, min, max };
+            CopyData(hWndObject2, GetParent(hDlg), params, sizeof(params));
+            //PostMessage(hWndObject2, WM_COMMAND, 10000, (LPARAM)hWnd);
+
             EndDialog(hDlg, 1);
             return (INT_PTR)TRUE;
         }
@@ -40,10 +48,10 @@ static INT_PTR CALLBACK FUNC_VectorParams(HWND hDlg, UINT message, WPARAM wParam
     return (INT_PTR)FALSE;
 }
 
-void VectorParams::OnCreate(HWND hWnd, HINSTANCE hInst)
+void VectorParams::OnCreate(HWND hwnd, HINSTANCE hInst)
 {
     pVectorDialog = this;
-    DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hWnd, FUNC_VectorParams);
+    DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hwnd, FUNC_VectorParams);
 }
 
 void VectorParams::FindWindows()
@@ -81,4 +89,15 @@ BOOL VectorParams::CheckInputValues(HWND hdlg)
         return FALSE;
     }
     return TRUE;
+}
+
+void VectorParams::CopyData(HWND hWndDest, HWND hWndSrc, void* lp, long cb)
+{
+    COPYDATASTRUCT cds;
+
+    cds.dwData = 1;
+    cds.cbData = cb;
+    cds.lpData = lp;
+
+    SendMessage(hWndDest, WM_COPYDATA, (WPARAM)hWndSrc, (LPARAM)&cds);
 }
