@@ -14,7 +14,6 @@ void VectorGenerator::OnCopyData(HWND hWnd, WPARAM wParam, LPARAM lParam)
 
     Generate();
 	InvalidateRect(hWnd, NULL, TRUE);
-	//ShowVector(hWnd);
 }
 
 void VectorGenerator::Generate()
@@ -31,20 +30,11 @@ void VectorGenerator::Generate()
 
 void VectorGenerator::ShowVector(HWND hWnd, HDC hdc)
 {
-	/*using convert_type = std::codecvt_utf8<wchar_t>;
-	wstring_convert<convert_type, wchar_t> converter;*/
-
 	int left = 60;
 	int top = 15;
 	int dH = 50;
 	int dV = 20;
 
-	//PAINTSTRUCT ps;
-	//HDC hdc = BeginPaint(hWnd, &ps);
-
-	/*string sElem;
-	wstring wsElem;
-	double elem;*/
 	TextOut(hdc, left, top, L"x", 1);
 	TextOut(hdc, left + dH, top, L"y", 1);
 	top += dV;
@@ -63,32 +53,6 @@ void VectorGenerator::ShowVector(HWND hWnd, HDC hdc)
 
 		top += dV;
 	}
-	//InvalidateRect(hWnd, NULL, TRUE);
-	/*int x = 20, y = 25;
-
-	for (int i = 0; i < nPoint; i++)
-	{
-
-		stringstream ss1, ss2;
-		elem = pointsArray[i][0];
-		ss1 << elem;
-		ss1 >> sElem;
-		wsElem = converter.from_bytes(sElem);
-		TextOut(hdc, x, y, (LPCWSTR)wsElem.c_str(), (int)wcslen((LPCWSTR)wsElem.c_str()));
-
-		x += 50;
-
-		elem = pointsArray[i][1];
-		ss2 << elem;
-		ss2 >> sElem;
-		wsElem = converter.from_bytes(sElem);
-		TextOut(hdc, x, y, (LPCWSTR)wsElem.c_str(), (int)wcslen((LPCWSTR)wsElem.c_str()));
-		x = 20;
-		y += 20;
-	}*/
-
-	/*TextOut(hdc, 150, 100, text, wcslen(text));*/
-	//EndPaint(hWnd, &ps);
 }
 
 /*
