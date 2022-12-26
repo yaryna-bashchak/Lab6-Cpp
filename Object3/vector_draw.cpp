@@ -63,6 +63,7 @@ void VectorDraw::ParseClipboard()
 void VectorDraw::OnPaint(HDC hdc)
 {
 	DrawAxis(hdc);
+	DrawNumbers(hdc);
 	DrawVector(hdc);
 }
 
@@ -81,6 +82,32 @@ void VectorDraw::DrawAxis(HDC hdc)
 	MoveToEx(hdc, x2 - dArrow, y2 - dArrow, NULL);
 	LineTo(hdc, x2, y2);
 	LineTo(hdc, x2 - dArrow, y2 + dArrow);
+}
+
+void VectorDraw::DrawNumbers(HDC hdc)
+{
+	dx = (x2 - x1 - 50) / myVector.size();
+
+	vector<double>::iterator max;
+	vector<double>::iterator min;
+	max = max_element(myVector.begin(), myVector.end());
+	min = min_element(myVector.begin(), myVector.end());
+
+	dy = (y2 - y1 - 50) / (*max - *min + 1);
+
+	for (size_t i = 0; i < myVector.size(); i++)
+	{
+		int xCoord = x1 + dx * (i + 1);
+		MoveToEx(hdc, xCoord, y2 - 5, NULL);
+		LineTo(hdc, xCoord, y2 + 5);
+	}
+
+	for (size_t i = 0; i < *max - *min + 1; i++)
+	{
+		int yCoord = y2 - dy * (i + 1);
+		MoveToEx(hdc, x1 - 5, yCoord, NULL);
+		LineTo(hdc, x1 + 5, yCoord);
+	}
 }
 
 void VectorDraw::DrawVector(HDC hdc)
