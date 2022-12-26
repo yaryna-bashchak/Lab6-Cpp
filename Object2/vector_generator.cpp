@@ -77,7 +77,7 @@ std::string PointsDisplay::GetArrayStr(int** arraySource, int num)
 	return result;
 }
 
-int PointsDisplay::PutTextToClipboard(HWND hWnd, const char* src)
+int VectorGenerator::PutToClipboard(HWND hWnd, char* src)
 {
 	HGLOBAL hglbCopy;
 	BYTE* pTmp;
@@ -87,6 +87,7 @@ int PointsDisplay::PutTextToClipboard(HWND hWnd, const char* src)
 	if (src[0] == 0) return 0;
 
 	len = (long)strlen(src);
+	len = strlen(src);
 	hglbCopy = GlobalAlloc(GHND, len + 1);
 
 	if (hglbCopy == NULL) return 0;
@@ -106,4 +107,4 @@ int PointsDisplay::PutTextToClipboard(HWND hWnd, const char* src)
 	CloseClipboard();
 
 	return 1;
-}*/
+}

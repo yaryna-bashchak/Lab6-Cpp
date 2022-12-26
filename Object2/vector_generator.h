@@ -14,4 +14,5 @@ public:
 	void OnCopyData(HWND hWnd, WPARAM wParam, LPARAM lParam);
 	void Generate();
 	void ShowVector(HWND hWnd, HDC hdc);
+	int PutToClipboard(HWND hWnd, char *src);
 };
