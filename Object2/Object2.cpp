@@ -3,6 +3,7 @@
 
 #include "framework.h"
 #include "Object2.h"
+#include "vector_generator.h"
 
 #define MAX_LOADSTRING 100
 
@@ -10,6 +11,7 @@
 HINSTANCE hInst;                                // current instance
 WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
 WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
+VectorGenerator generator;
 
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -127,6 +129,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_COPYDATA:
+        generator.OnCopyData(hWnd, wParam, lParam);
+        break;
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
