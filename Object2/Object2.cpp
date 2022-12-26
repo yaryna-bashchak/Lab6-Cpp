@@ -153,6 +153,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
+            generator.ShowVector(hWnd, hdc);
             // TODO: Add any drawing code that uses hdc here...
             EndPaint(hWnd, &ps);
         }

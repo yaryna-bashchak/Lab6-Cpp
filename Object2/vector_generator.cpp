@@ -34,10 +34,10 @@ void VectorGenerator::ShowVector(HWND hWnd, HDC hdc)
 	/*using convert_type = std::codecvt_utf8<wchar_t>;
 	wstring_convert<convert_type, wchar_t> converter;*/
 
-	int left = 40;
+	int left = 60;
 	int top = 15;
 	int dH = 50;
-	int dV = 30;
+	int dV = 20;
 
 	//PAINTSTRUCT ps;
 	//HDC hdc = BeginPaint(hWnd, &ps);
@@ -49,7 +49,7 @@ void VectorGenerator::ShowVector(HWND hWnd, HDC hdc)
 	TextOut(hdc, left + dH, top, L"y", 1);
 	top += dV;
 	
-	for (size_t i = 0; i < myVector.size(); i++)
+	for (int i = 0; i < myVector.size(); i++)
 	{
 		WCHAR wx[64];
 		WCHAR wy[64];

@@ -9,7 +9,7 @@ class VectorGenerator
 {
 private:
 	int n, min, max;
-	vector<double> myVector = {12, 15, 17};
+	vector<double> myVector;
 public:
 	void OnCopyData(HWND hWnd, WPARAM wParam, LPARAM lParam);
 	void Generate();
