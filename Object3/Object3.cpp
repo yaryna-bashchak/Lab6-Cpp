@@ -131,8 +131,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
     case WM_CLIPBOARDUPDATE:
         graph.GetFromClipboard(hWnd, 1024);
-        graph.ParseClipboard();
-        InvalidateRect(hWnd, NULL, TRUE);
         break;
     case WM_COMMAND:
         {

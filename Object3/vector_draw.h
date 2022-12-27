@@ -13,11 +13,11 @@ private:
 	vector<double>::iterator min, max;
 	HPEN hPen = CreatePen(PS_SOLID, 2, 0);
 	char dataFromClipboard[1024];
-	vector<double> myVector = {3};
+	vector<double> myVector = {10, 3, 12};
 public:
-	long GetFromClipboard(HWND hWnd, long maxsize);
-	void ParseClipboard();
+	void GetFromClipboard(HWND hWnd, long maxsize);
 	void OnPaint(HDC hdc);
+	void ParseClipboard();
 	void DrawAxis(HDC hdc);
 	void DrawNumbers(HDC hdc);
 	void DrawVector(HDC hdc);
