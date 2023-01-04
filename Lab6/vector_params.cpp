@@ -22,21 +22,21 @@ INT_PTR VectorParams::DlgWndProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM 
     case WM_COMMAND:
         if (LOWORD(wParam) == IDOK)
         {
-            n = GetDlgItemInt(hDlg, IDC_EDIT_N, &pn, FALSE);
-            min = GetDlgItemInt(hDlg, IDC_EDIT_MIN, &pmin, FALSE);
-            max = GetDlgItemInt(hDlg, IDC_EDIT_MAX, &pmax, FALSE);
+            n = GetDlgItemInt(hDlg, IDC_EDIT_N, &pn, TRUE);
+            min = GetDlgItemInt(hDlg, IDC_EDIT_MIN, &pmin, TRUE);
+            max = GetDlgItemInt(hDlg, IDC_EDIT_MAX, &pmax, TRUE);
             
             if (!CheckInputText(hDlg)) break;
             if (!CheckInputValues(hDlg)) break;
 
-            FindWindows();
+            FindMyWindow(2);
             
             int params[3] = { n, min, max };
             CopyData(hWndObject2, GetParent(hDlg), params, sizeof(params));
 
+            FindMyWindow(3);
             PostMessage(hWndObject3, WM_CLIPBOARDUPDATE, NULL, NULL);
-            //PostMessage(hWndObject2, WM_COMMAND, 10000, (LPARAM)hWnd);
-
+            
             EndDialog(hDlg, 1);
             return (INT_PTR)TRUE;
         }
@@ -56,20 +56,25 @@ void VectorParams::OnCreate(HWND hwnd, HINSTANCE hInst)
     DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), hwnd, FUNC_VectorParams);
 }
 
-void VectorParams::FindWindows()
+void VectorParams::FindMyWindow(int i)
 {
-    hWndObject2 = FindWindow(L"OBJECT2", NULL);
-    if (!hWndObject2)
+    if (i == 2)
     {
-        WinExec("Object2.exe", SW_SHOW);
         hWndObject2 = FindWindow(L"OBJECT2", NULL);
+        if (!hWndObject2)
+        {
+            WinExec("Object2.exe", SW_SHOW);
+            hWndObject2 = FindWindow(L"OBJECT2", NULL);
+        }
     }
-
-    hWndObject3 = FindWindow(L"OBJECT3", NULL);
-    if (!hWndObject3)
+    else if (i == 3)
     {
-        WinExec("Object3.exe", SW_SHOW);
         hWndObject3 = FindWindow(L"OBJECT3", NULL);
+        if (!hWndObject3)
+        {
+            WinExec("Object3.exe", SW_SHOW);
+            hWndObject3 = FindWindow(L"OBJECT3", NULL);
+        }
     }
 }
 

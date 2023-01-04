@@ -1,6 +1,5 @@
 #include "vector_generator.h"
 #include <cstdlib>
-#include <codecvt>
 
 void VectorGenerator::OnCopyData(HWND hWnd, WPARAM wParam, LPARAM lParam)
 {
